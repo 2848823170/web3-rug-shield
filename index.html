@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https: http://localhost:* http://127.0.0.1:*; base-uri 'none'; form-action 'none';" />
+  <title>Web3 Rug &amp; Calldata Shield — $0.01 Base USDC x402 Security DApp</title>
+  <style>:root {
+  --bg: #050811;
+  --panel: #0d1424;
+  --panel-2: #131d33;
+  --border: #1e2d4a;
+  --border-hi: #334b77;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --cyan: #06b6d4;
+  --blue: #2563eb;
+  --emerald: #10b981;
+  --emerald-bg: rgba(16, 185, 129, 0.14);
+  --amber: #f59e0b;
+  --amber-bg: rgba(245, 158, 11, 0.15);
+  --crimson: #ef4444;
+  --crimson-bg: rgba(239, 68, 68, 0.15);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 15% 0%, #0d1b38 0%, var(--bg) 52%);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sticky DApp Header */
+.dapp-hdr {
+  background: rgba(5, 8, 17, 0.88);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  backdrop-filter: blur(12px);
+}
+
+.hdr-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 11px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.brand-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shield-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
+}
+
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tab-btn {
+  border: 1px solid var(--border-hi);
+  background: var(--panel);
+  color: var(--muted);
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.tab-btn:hover {
+  color: #fff;
+  border-color: var(--cyan);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+  border-color: #22d3ee;
+  color: #ffffff;
+}
+
+.hdr-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wallet-btn {
+  background: var(--emerald);
+  color: #022c22;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-size: 12.5px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.wallet-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.wallet-btn.connected {
+  background: var(--panel-2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.lang-toggle {
+  display: inline-flex;
+  background: var(--panel);
+  border: 1px solid var(--border-hi);
+  border-radius: 999px;
+  padding: 2px;
+}
+
+.lang-pill {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lang-pill.active {
+  background: #f8fafc;
+  color: #050811;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 22px 16px 56px;
+}
+
+/* Hero Strip */
+.hero-box {
+  background: linear-gradient(135deg, rgba(13, 20, 36, 0.96) 0%, rgba(19, 29, 51, 0.96) 100%);
+  border: 1px solid var(--border-hi);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.x402-pill {
+  display: inline-block;
+  background: rgba(6, 182, 212, 0.16);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: #67e8f9;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.hero-box h1 {
+  margin: 0 0 6px;
+  font-size: clamp(20px, 2.6vw, 27px);
+  letter-spacing: -0.02em;
+}
+
+.hero-box p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  max-width: 760px;
+}
+
+.price-badge-cluster {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat-chip {
+  background: rgba(5, 8, 17, 0.72);
+  border: 1px solid var(--border-hi);
+  border-radius: 12px;
+  padding: 9px 14px;
+  text-align: center;
+  min-width: 118px;
+}
+
+.stat-chip strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 15px;
+  color: #22d3ee;
+}
+
+.stat-chip span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Main 2-Column Scanner Grid */
+.scanner-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .scanner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.sample-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 560px) {
+  .sample-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sample-btn {
+  text-align: left;
+  background: var(--panel-2);
+  border: 1.5px solid var(--border-hi);
+  color: var(--text);
+  border-radius: 11px;
+  padding: 9px 11px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.sample-btn:hover {
+  border-color: var(--cyan);
+  transform: translateY(-1px);
+}
+
+.sample-btn.active {
+  border-color: #22d3ee;
+  background: rgba(6, 182, 212, 0.14);
+}
+
+.sample-btn strong {
+  display: block;
+  font-size: 12.5px;
+}
+
+.sample-btn span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.lbl {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.inp,
+.sel,
+.txtarea {
+  width: 100%;
+  background: #050811;
+  color: var(--text);
+  border: 1px solid var(--border-hi);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 11px;
+  padding: 13px 16px;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.action-btn:hover {
+  filter: brightness(1.08);
+}
+
+.secondary-btn {
+  width: 100%;
+  background: var(--panel-2);
+  color: #93c5fd;
+  border: 1px solid var(--border-hi);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Report Score Header */
+.score-banner {
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.score-low {
+  background: var(--emerald-bg);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+}
+
+.score-med {
+  background: var(--amber-bg);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.score-crit {
+  background: var(--crimson-bg);
+  border: 1px solid rgba(239, 68, 68, 0.55);
+}
+
+.score-num {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 520px) {
+  .kv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kv-cell {
+  background: #070c18;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 11px;
+  font-size: 12px;
+}
+
+.kv-cell span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.kv-cell strong {
+  font-family: var(--mono);
+  word-break: break-all;
+}
+
+.finding-pill {
+  border-radius: 10px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fde68a;
+}
+
+.finding-pill.crit {
+  background: var(--crimson-bg);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+}
+
+.code-block {
+  background: #04070e;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #a5f3fc;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin: 8px 0 12px;
+}
+</style>
+</head>
+<body>
+  <header class="dapp-hdr">
+    <div class="hdr-inner">
+      <div class="brand-cluster">
+        <span class="shield-icon">🛡️</span>
+        <div>
+          <div style="font-weight:900;font-size:15px;">Web3 Rug &amp; Calldata Shield</div>
+          <div id="hdrSub" style="font-size:11.5px;color:var(--muted);"></div>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="DApp Modes">
+        <button id="tabBtnToken" type="button" class="tab-btn active"></button>
+        <button id="tabBtnCalldata" type="button" class="tab-btn"></button>
+        <button id="tabBtnDev" type="button" class="tab-btn"></button>
+      </nav>
+
+      <div class="hdr-right">
+        <a href="https://www.x402scan.com/server/51881708-6ade-4170-a4d2-4cab8db3652a" target="_blank" rel="noopener" class="tab-btn" style="text-decoration:none;border-color:#22d3ee;color:#67e8f9;">✓ Indexed on x402scan ↗</a>
+        <button id="connectWalletBtn" type="button" class="wallet-btn"></button>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button id="langEn" type="button" class="lang-pill active">EN</button>
+          <button id="langZh" type="button" class="lang-pill">中文</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-box">
+      <div>
+        <span id="heroKicker" class="x402-pill"></span>
+        <h1 id="heroTitle"></h1>
+        <p id="heroDesc"></p>
+      </div>
+      <div class="price-badge-cluster">
+        <div class="stat-chip"><strong>$0.01 USDC</strong><span id="s1Lbl"></span></div>
+        <div class="stat-chip"><strong>&lt; 400 ms</strong><span id="s2Lbl"></span></div>
+        <div class="stat-chip"><strong>0% Fee</strong><span id="s3Lbl"></span></div>
+      </div>
+    </section>
+
+    <div id="statusLine" style="display:none;background:rgba(37,99,235,0.18);border:1px solid #3b82f6;color:#bfdbfe;padding:10px 14px;border-radius:12px;margin-bottom:16px;font-family:var(--mono);font-size:12.5px;"></div>
+
+    <!-- TAB 1: Token Rug/Honeypot Scanner -->
+    <section id="viewToken">
+      <div class="scanner-grid">
+        <div>
+          <div class="card">
+            <h2 id="leftTitle"></h2>
+            <div id="sampleRow" class="sample-row"></div>
+
+            <h2 id="liveTitle" style="margin-top:8px;"></h2>
+            <label id="lblAddr" class="lbl" for="inpTokenAddr"></label>
+            <input id="inpTokenAddr" class="inp" type="text" spellcheck="false" />
+
+            <label id="lblChain" class="lbl" for="selChain"></label>
+            <select id="selChain" class="sel">
+              <option value="auto">Auto-Detect (Base 0x... or Solana Base58)</option>
+              <option value="base">Base Mainnet (Chain ID 8453)</option>
+              <option value="solana">Solana Mainnet (SPL / Token-2022)</option>
+            </select>
+
+            <button id="payScanBtn" type="button" class="action-btn"></button>
+            <button id="probe402Btn" type="button" class="secondary-btn"></button>
+
+            <details style="margin-top:12px;">
+              <summary style="cursor:pointer;font-size:12px;color:var(--muted);font-weight:700;">⚙️ Advanced Gateway URL &amp; X-TX-HASH Receipt Fallback</summary>
+              <div style="margin-top:10px;">
+                <label id="lblGateway" class="lbl" for="inpGateway"></label>
+                <input id="inpGateway" class="inp" type="url" />
+                <div style="font-size:11px;color:var(--muted);margin:-6px 0 10px;">Primary: <code>https://x402-web3-fin-gateway.vercel.app</code> · Secondary Cloud Node: <code>https://nick-ebony-forth-sic.trycloudflare.com</code></div>
+                <label id="lblTxHash" class="lbl" for="inpTxHash"></label>
+                <input id="inpTxHash" class="inp" type="text" placeholder="0x... (optional settled Base USDC Transfer txHash)" />
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div id="scoreBanner" class="score-banner score-low">
+              <div>
+                <div id="repSourceTag" style="font-size:11px;font-family:var(--mono);color:var(--muted);margin-bottom:2px;"></div>
+                <div id="repSymbol" style="font-size:19px;font-weight:900;"></div>
+                <div id="repRec" style="font-size:12.5px;font-weight:700;margin-top:2px;"></div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:10.5px;color:var(--muted);text-transform:uppercase;">Risk Score</div>
+                <div id="repScore" class="score-num"></div>
+              </div>
+            </div>
+
+            <div id="repKvGrid" class="kv-grid"></div>
+            <div id="repFindings"></div>
+
+            <details style="margin-top:10px;">
+              <summary style="cursor:pointer;font-size:12px;color:var(--muted);font-weight:700;">{ } Raw JSON / HTTP 402 Response Payload</summary>
+              <pre id="rawJsonBox" class="code-block"></pre>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Raw Calldata & Unlimited Approval Drain Shield -->
+    <section id="viewCalldata" style="display:none;">
+      <div class="card">
+        <h2 id="cdTitle"></h2>
+        <label class="lbl" for="inpCdTo">Target Contract Address (Base / EVM)</label>
+        <input id="inpCdTo" class="inp" type="text" />
+        <label class="lbl" for="inpCdHex">Raw Transaction Calldata (0x...)</label>
+        <textarea id="inpCdHex" class="txtarea" rows="4"></textarea>
+        <button id="cdScanBtn" type="button" class="action-btn"></button>
+      </div>
+    </section>
+
+    <!-- TAB 3: Bot & AI Agent Integration -->
+    <section id="viewDev" style="display:none;">
+      <div class="card">
+        <h2 id="devTitle"></h2>
+        <div id="devTabs" class="nav-tabs" style="margin-bottom:12px;"></div>
+        <pre id="devCodeBox" class="code-block"></pre>
+        <button id="copyDevBtn" type="button" class="secondary-btn" style="max-width:220px;">📋 Copy Snippet</button>
+      </div>
+    </section>
+  </main>
+
+  <script>(function () {
+  "use strict";
+
+  var PAY_TO = "0xfEbDbB880C7f323c145d61683874a45540208a68";
+  var BASE_USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+  var BASE_CHAIN_HEX = "0x2105";
+  var DEFAULT_GATEWAY = "https://x402-web3-fin-gateway.vercel.app";
+  var FALLBACK_GATEWAY = "https://nick-ebony-forth-sic.trycloudflare.com";
+
+  var params = new URLSearchParams(window.location.search || "");
+  var initialGateway = (params.get("gateway") || DEFAULT_GATEWAY).replace(/\/+$/, "");
+
+  var SAMPLES = [
+    {
+      labelEn: "🟦 DEGEN (Base · Real RPC)",
+      labelZh: "🟦 DEGEN (Base 实盘扫描)",
+      subEn: "LOW · 18/100 · 107.8 WETH LP",
+      subZh: "低风险 · 18/100 · Uniswap V3",
+      addr: "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+      chain: "base",
+      report: {
+        status: "ok",
+        sourceTag: "FREE SAMPLE · Captured from Base Mainnet RPC",
+        summary: {
+          chain: "base",
+          tokenAddress: "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+          symbol: "DEGEN",
+          safeToTrade: true,
+          recommendation: "PROCEED_STANDARD_SLIPPAGE",
+          riskLevel: "LOW",
+          riskScore: 18,
+          findingCount: 1,
+          latencyMs: 373
+        },
+        scan: {
+          rpcUsed: "https://mainnet.base.org",
+          token: {
+            name: "Degen",
+            symbol: "DEGEN",
+            decimals: 18,
+            totalSupplyFormatted: "35,800,048,419.31",
+            owner: "0x704Ec5C12Ca20a293C2C0B72B22619A4231f3c0d",
+            ownerRenounced: false,
+            isUpgradeableProxy: false
+          },
+          bytecodeFlags: {
+            byteLength: 11608,
+            hasSelfdestruct: false,
+            hasDelegatecall: false,
+            hasBlacklistSelector: false,
+            hasFeeSetterSelector: false,
+            hasPauseSelector: true
+          },
+          liquidity: {
+            dex: "uniswap-v3-weth-0.3%",
+            poolAddress: "0xc9034c3E7F58003E6ae0C8438e7c8f4598d5ACAA",
+            poolWethReserve: "107.806188 WETH",
+            discoveredPoolsCount: 4
+          },
+          findings: [
+            {
+              severity: "MEDIUM",
+              code: "OWNERSHIP_NOT_RENOUNCED",
+              message: "Contract has an active owner (0x704Ec5C1...31f3c0d) — privileged pause/admin functions remain callable."
+            }
+          ]
+        }
+      }
+    },
+    {
+      labelEn: "🟪 BONK (Solana · Real RPC)",
+      labelZh: "🟪 BONK (Solana 实盘扫描)",
+      subEn: "LOW · 0/100 · Mint/Freeze Renounced",
+      subZh: "极低风险 · 0/100 · 铸币/冻结权限已丢弃",
+      addr: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      chain: "solana",
+      report: {
+        status: "ok",
+        sourceTag: "FREE SAMPLE · Captured from Solana Mainnet RPC",
+        summary: {
+          chain: "solana",
+          tokenAddress: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+          symbol: "BONK",
+          safeToTrade: true,
+          recommendation: "PROCEED_STANDARD_SLIPPAGE",
+          riskLevel: "LOW",
+          riskScore: 0,
+          findingCount: 0,
+          latencyMs: 398
+        },
+        scan: {
+          rpcUsed: "https://api.mainnet-beta.solana.com",
+          token: {
+            name: "Bonk",
+            symbol: "BONK",
+            tokenStandard: "spl-token",
+            decimals: 5,
+            totalSupplyFormatted: "87,994,287,254,625.17",
+            mintAuthorityRenounced: true,
+            freezeAuthorityRenounced: true
+          },
+          liquidity: {
+            dex: "Solana SPL Verified Mint",
+            poolAddress: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            poolWethReserve: "Mint & Freeze = null",
+            discoveredPoolsCount: 1
+          },
+          findings: []
+        }
+      }
+    },
+    {
+      labelEn: "🚨 Trap Demo (Honeypot ERC-20)",
+      labelZh: "🚨 貔貅盘拦截样本 (Honeypot)",
+      subEn: "CRITICAL · 94/100 · DO_NOT_TRADE",
+      subZh: "高危拦截 · 94/100 · 隐藏黑名单+99%税",
+      addr: "0xdead000000000000000000000000000000baddad",
+      chain: "base",
+      report: {
+        status: "ok",
+        sourceTag: "FREE SAMPLE · Adversarial Honeypot Trap Vector",
+        summary: {
+          chain: "base",
+          tokenAddress: "0xdead000000000000000000000000000000baddad",
+          symbol: "PEPEAI2",
+          safeToTrade: false,
+          recommendation: "DO_NOT_TRADE_HONEYPOT_OR_RUG",
+          riskLevel: "CRITICAL",
+          riskScore: 94,
+          findingCount: 3,
+          latencyMs: 289
+        },
+        scan: {
+          rpcUsed: "https://mainnet.base.org",
+          token: {
+            name: "Fake Pepe AI",
+            symbol: "PEPEAI2",
+            decimals: 18,
+            totalSupplyFormatted: "1,000,000,000",
+            owner: "0x999900000000000000000000000000000000dead",
+            ownerRenounced: false,
+            isUpgradeableProxy: true
+          },
+          liquidity: {
+            dex: "uniswap-v2-unburned",
+            poolAddress: "0x1111000000000000000000000000000000002222",
+            poolWethReserve: "1.42 WETH (0% LP Burned!)",
+            discoveredPoolsCount: 1
+          },
+          findings: [
+            {
+              severity: "CRITICAL",
+              code: "TRANSFER_SIMULATION_REVERTED",
+              message: "Live eth_call transfer() simulation reverted for non-whitelisted holders (classic sell-lock honeypot)."
+            },
+            {
+              severity: "CRITICAL",
+              code: "UPGRADEABLE_PROXY_AND_BLACKLIST",
+              message: "EIP-1967 upgradeable proxy with active setFee() and blacklistAddress() bytecode selectors."
+            },
+            {
+              severity: "HIGH",
+              code: "UNBURNED_SHALLOW_LP",
+              message: "0.0% of Uniswap V2 LP tokens burned; deployer holds 98.4% of liquidity."
+            }
+          ]
+        }
+      }
+    }
+  ];
+
+  var state = {
+    lang: "en",             // 'en' | 'zh'
+    tab: "token",           // 'token' | 'calldata' | 'developers'
+    sampleIdx: 0,
+    walletAddr: "",
+    gatewayUrl: initialGateway,
+    tokenAddr: SAMPLES[0].addr,
+    chainSel: "base",
+    txHashOpt: "",
+    calldataHex: "0x095ea7b3000000000000000000000000000000000022d473030f116ddee9f6b43ac78ba3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    calldataTo: BASE_USDC,
+    statusMsg: "",
+    activeReport: SAMPLES[0].report,
+    devSnippetIdx: 0
+  };
+
+  var I18N = {
+    en: {
+      sub: "Gasless $0.01 Base USDC x402 Security Oracle for Traders & AI Agents",
+      tabToken: "🔍 Token Rug & Honeypot Scanner",
+      tabCalldata: "🛡️ Calldata & Approval Drain Shield",
+      tabDev: "🤖 curl / AgentKit / MCP SDK",
+      connectBtn: "🔗 Connect EVM Wallet (Base)",
+      kicker: "0%-Fee x402 Protocol · Base Mainnet USDC (EIP-3009 Gasless Signing) · <400ms RPC",
+      heroTitle: "Scan Any Base ERC-20 or Solana SPL Token Before You Swap",
+      heroDesc: "Try the 3 instant free samples below, or connect MetaMask / Rabby / Coinbase Wallet on Base (8453) to sign a gasless $0.01 USDC EIP-3009 authorization and scan any live token or raw transaction calldata directly on-chain.",
+      s1Lbl: "Gasless EIP-3009",
+      s2Lbl: "Base + Solana RPC",
+      s3Lbl: "Direct Settlement",
+      leftTitle: "1. Instant Free Samples (Zero Wallet Required)",
+      liveTitle: "2. Live On-Chain Scan ($0.01 USDC via x402)",
+      lblAddr: "Token Contract (0x Base ERC-20) or Solana Mint (Base58)",
+      lblChain: "Target Network",
+      lblGateway: "x402 Gateway Endpoint",
+      lblTxHash: "Optional Fallback: Settled Base USDC Tx Hash (X-TX-HASH)",
+      payScanBtn: "⚡ Sign $0.01 USDC (Gasless EIP-3009) & Scan Live Token",
+      probe402Btn: "🔎 Probe Live HTTP 402 Quote Header (Free Check)",
+      cdTitle: "Decode Raw EVM Calldata & Detect Unlimited Approval / Permit2 Drains ($0.01 USDC)",
+      cdBtn: "⚡ Sign $0.01 USDC & Audit Raw Calldata on Gateway",
+      devTitle: "Plug Into Autonomous Trading Agents (Coinbase AgentKit · ElizaOS · GOAT · curl)"
+    },
+    zh: {
+      sub: "基于 x402 协议的 $0.01 Base USDC 免 Gas 链上貔貅盘与授权防火墙",
+      tabToken: "🔍 代币貔貅盘与撤池检测",
+      tabCalldata: "🛡️ Calldata 恶意授权解码",
+      tabDev: "🤖 curl / AgentKit / MCP 接入",
+      connectBtn: "🔗 连接 EVM 钱包 (Base 链)",
+      kicker: "0% 中间商抽成 x402 网关 · Base 主网 USDC (EIP-3009 免 Gas 签名) · <400ms 链上实测",
+      heroTitle: "交易前毫秒级识破 Base 与 Solana 貔貅盘、隐藏增发与假流动性",
+      heroDesc: "点击下方 3 个免费实盘样本即刻查看报告深度；或连接 MetaMask / Rabby / Coinbase 钱包，签署免 Gas 的 $0.01 USDC EIP-3009 预授权，实时扫描任意 Base ERC-20 或 Solana SPL 代币。",
+      s1Lbl: "免 Gas EIP-3009",
+      s2Lbl: "Base + Solana 双链",
+      s3Lbl: "0% 平台抽成",
+      leftTitle: "1. 免费实盘样本体验 (无需连接钱包)",
+      liveTitle: "2. 实时链上深度扫描 ($0.01 USDC · x402 协议)",
+      lblAddr: "代币合约地址 (Base 0x... 或 Solana Mint Base58)",
+      lblChain: "目标公链",
+      lblGateway: "x402 网关地址",
+      lblTxHash: "可选备用凭据：Base 主网 USDC 转账哈希 (X-TX-HASH)",
+      payScanBtn: "⚡ 免 Gas 签署 $0.01 USDC (EIP-3009) 并扫描实时合约",
+      probe402Btn: "🔎 免费探测实时网关 HTTP 402 报价响应头",
+      cdTitle: "解码原始 EVM Calldata 并拦截无限授权 / Permit2 钓鱼盗刷 ($0.01 USDC)",
+      cdBtn: "⚡ 免 Gas 签署 $0.01 USDC 并检测 Calldata 风险",
+      devTitle: "一键接入 AI 交易 Agent (Coinbase AgentKit · ElizaOS · GOAT · curl)"
+    }
+  };
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function randomBytes32Hex() {
+    var arr = new Uint8Array(32);
+    window.crypto.getRandomValues(arr);
+    var hex = "0x";
+    for (var i = 0; i < arr.length; i++) {
+      hex += ("0" + arr[i].toString(16)).slice(-2);
+    }
+    return hex;
+  }
+
+  async function ensureWalletOnBase() {
+    if (!window.ethereum) {
+      throw new Error(
+        state.lang === "zh"
+          ? "未检测到浏览器 EVM 钱包插件（请使用 MetaMask / Rabby / Coinbase Wallet，或使用下方 X-TX-HASH 凭据）。"
+          : "No browser EVM wallet detected (install MetaMask / Rabby / Coinbase Wallet, or paste an X-TX-HASH receipt)."
+      );
+    }
+    var accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    if (!accounts || !accounts.length) {
+      throw new Error("No wallet account authorized.");
+    }
+    state.walletAddr = accounts[0];
+
+    var chainHex = await window.ethereum.request({ method: "eth_chainId" });
+    if (parseInt(chainHex, 16) !== 8453) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: BASE_CHAIN_HEX }]
+        });
+      } catch (switchErr) {
+        if (switchErr && switchErr.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: BASE_CHAIN_HEX,
+              chainName: "Base Mainnet",
+              nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+              rpcUrls: ["https://mainnet.base.org"],
+              blockExplorerUrls: ["https://basescan.org"]
+            }]
+          });
+        } else {
+          throw switchErr;
+        }
+      }
+    }
+    renderAll();
+    return state.walletAddr;
+  }
+
+  async function signEip3009PaymentHeader(amountAtomicStr) {
+    var payer = await ensureWalletOnBase();
+    var validBefore = String(Math.floor(Date.now() / 1000) + 300);
+    var nonce = randomBytes32Hex();
+
+    var authorization = {
+      from: payer,
+      to: PAY_TO,
+      value: amountAtomicStr,
+      validAfter: "0",
+      validBefore: validBefore,
+      nonce: nonce
+    };
+
+    var typedData = {
+      types: {
+        EIP712Domain: [
+          { name: "name", type: "string" },
+          { name: "version", type: "string" },
+          { name: "chainId", type: "uint256" },
+          { name: "verifyingContract", type: "address" }
+        ],
+        TransferWithAuthorization: [
+          { name: "from", type: "address" },
+          { name: "to", type: "address" },
+          { name: "value", type: "uint256" },
+          { name: "validAfter", type: "uint256" },
+          { name: "validBefore", type: "uint256" },
+          { name: "nonce", type: "bytes32" }
+        ]
+      },
+      domain: {
+        name: "USD Coin",
+        version: "2",
+        chainId: 8453,
+        verifyingContract: BASE_USDC
+      },
+      primaryType: "TransferWithAuthorization",
+      message: authorization
+    };
+
+    var signature = await window.ethereum.request({
+      method: "eth_signTypedData_v4",
+      params: [payer, JSON.stringify(typedData)]
+    });
+
+    var x402Payload = {
+      x402Version: 1,
+      scheme: "exact",
+      network: "base",
+      payload: {
+        signature: signature,
+        authorization: authorization
+      }
+    };
+
+    return window.btoa(JSON.stringify(x402Payload));
+  }
+
+  async function executeLivePaidPost(path, bodyObj) {
+    var gw = (state.gatewayUrl || DEFAULT_GATEWAY).replace(/\/+$/, "");
+    var headers = { "Content-Type": "application/json", "Accept": "application/json" };
+
+    if (state.txHashOpt && /^0x[0-9a-fA-F]{64}$/.test(state.txHashOpt.trim())) {
+      headers["X-TX-HASH"] = state.txHashOpt.trim();
+      state.statusMsg = "Verifying Base USDC transaction receipt on-chain...";
+      renderAll();
+    } else {
+      state.statusMsg = "Requesting EIP-3009 $0.01 USDC gasless signature in wallet...";
+      renderAll();
+      headers["X-PAYMENT"] = await signEip3009PaymentHeader("10000");
+      state.statusMsg = "Submitting signed x402 authorization to gateway & scanning RPC...";
+      renderAll();
+    }
+
+    var res = await fetch(gw + path, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(bodyObj)
+    });
+
+    var json = await res.json();
+    if (!res.ok) {
+      throw new Error("Gateway HTTP " + res.status + ": " + (json.error || JSON.stringify(json)));
+    }
+
+    var receiptB64 = res.headers.get("X-PAYMENT-RESPONSE") || res.headers.get("PAYMENT-RESPONSE");
+    var txNote = "LIVE PAID SCAN · Settled $0.01 USDC via x402";
+    if (receiptB64) {
+      try {
+        var r = JSON.parse(window.atob(receiptB64));
+        if (r.transaction) txNote += " · Base Tx: " + r.transaction.slice(0, 14) + "...";
+      } catch (_e) {}
+    }
+    json.sourceTag = txNote;
+    state.activeReport = json;
+    state.statusMsg = "✓ Live scan completed & settled on Base Mainnet!";
+    state.tab = "token";
+    renderAll();
+  }
+
+  async function probeLive402Quote() {
+    var gw = (state.gatewayUrl || DEFAULT_GATEWAY).replace(/\/+$/, "");
+    state.statusMsg = "Checking live x402 gateway manifest from " + gw + "/.well-known/x402.json ...";
+    renderAll();
+    try {
+      var res = await fetch(gw + "/.well-known/x402.json", {
+        method: "GET",
+        headers: { "Accept": "application/json" }
+      });
+      var body = await res.json();
+      state.statusMsg = "✓ Live x402 Gateway ONLINE (HTTP " + res.status + ") · Direct 0%-Fee Base USDC -> " + PAY_TO;
+      el("rawJsonBox").textContent = JSON.stringify(body, null, 2);
+      renderHeaderAndControls();
+    } catch (err) {
+      state.statusMsg = "⚠️ Gateway check error: " + err.message;
+      renderHeaderAndControls();
+    }
+  }
+
+  function getDevSnippets() {
+    var gw = (state.gatewayUrl || DEFAULT_GATEWAY).replace(/\/+$/, "");
+    return [
+      {
+        title: "1. curl (Unpaid HTTP 402 Quote + Paid X-PAYMENT)",
+        code:
+`# Step 1: Discover live HTTP 402 quote ($0.01 Base Mainnet USDC -> ${PAY_TO})
+curl -i -X POST "${gw}/api/v1/scan-token-risk" \\
+  -H "Content-Type: application/json" \\
+  -d '{"tokenAddress":"0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed","chain":"base"}'
+
+# Step 2: Retry with Base64 EIP-3009 X-PAYMENT (or X-TX-HASH receipt)
+curl -s -X POST "${gw}/api/v1/scan-token-risk" \\
+  -H "Content-Type: application/json" \\
+  -H "X-PAYMENT: <BASE64_EIP3009_JSON>" \\
+  -d '{"tokenAddress":"0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed","chain":"base"}'`
+      },
+      {
+        title: "2. Coinbase AgentKit / ElizaOS / GOAT SDK",
+        code:
+`import { TxGuardX402Client, createCoinbaseAgentKitActions } from "web3-tx-guard-agentkit";
+
+// Enforces strict $0.02 max atomic cap + recipient ${PAY_TO} before EIP-3009 signing
+const guard = new TxGuardX402Client({
+  gatewayUrl: "${gw}",
+  signer: viemWalletClientOnBase,
+});
+
+const report = await guard.scanTokenRugRisk({
+  tokenAddress: "0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed",
+  chain: "base",
+});
+if (!report.summary.safeToTrade) throw new Error("Blocked honeypot: " + report.summary.riskLevel);`
+      },
+      {
+        title: "3. Claude Code / Cursor / MCP JSON-RPC (/mcp)",
+        code:
+`{
+  "mcpServers": {
+    "x402-web3-rug-shield": {
+      "type": "streamable-http",
+      "url": "${gw}/mcp"
+    }
+  }
+}
+// Exposes MCP tool: scan_token_rug_risk & decode_evm_calldata_risk ($0.01 Base USDC)`
+      }
+    ];
+  }
+
+  function renderHeaderAndControls() {
+    var t = I18N[state.lang];
+    el("hdrSub").textContent = t.sub;
+    el("tabBtnToken").textContent = t.tabToken;
+    el("tabBtnCalldata").textContent = t.tabCalldata;
+    el("tabBtnDev").textContent = t.tabDev;
+
+    el("tabBtnToken").className = "tab-btn" + (state.tab === "token" ? " active" : "");
+    el("tabBtnCalldata").className = "tab-btn" + (state.tab === "calldata" ? " active" : "");
+    el("tabBtnDev").className = "tab-btn" + (state.tab === "developers" ? " active" : "");
+
+    if (state.walletAddr) {
+      el("connectWalletBtn").textContent = "🟢 Base: " + state.walletAddr.slice(0, 6) + "..." + state.walletAddr.slice(-4);
+      el("connectWalletBtn").className = "wallet-btn connected";
+    } else {
+      el("connectWalletBtn").textContent = t.connectBtn;
+      el("connectWalletBtn").className = "wallet-btn";
+    }
+
+    el("langEn").className = "lang-pill" + (state.lang === "en" ? " active" : "");
+    el("langZh").className = "lang-pill" + (state.lang === "zh" ? " active" : "");
+
+    el("heroKicker").textContent = t.kicker;
+    el("heroTitle").textContent = t.heroTitle;
+    el("heroDesc").textContent = t.heroDesc;
+    el("s1Lbl").textContent = t.s1Lbl;
+    el("s2Lbl").textContent = t.s2Lbl;
+    el("s3Lbl").textContent = t.s3Lbl;
+
+    el("viewToken").style.display = state.tab === "token" ? "block" : "none";
+    el("viewCalldata").style.display = state.tab === "calldata" ? "block" : "none";
+    el("viewDev").style.display = state.tab === "developers" ? "block" : "none";
+
+    el("statusLine").textContent = state.statusMsg;
+    el("statusLine").style.display = state.statusMsg ? "block" : "none";
+  }
+
+  function renderReportPanel() {
+    var rep = state.activeReport;
+    if (!rep) return;
+    var sum = rep.summary || {};
+    var scan = rep.scan || {};
+    var tok = scan.token || {};
+    var liq = scan.liquidity || {};
+    var findings = scan.findings || [];
+
+    var lvl = sum.riskLevel || "LOW";
+    var cls = "score-banner " + (lvl === "CRITICAL" || lvl === "HIGH" ? "score-crit" : (lvl === "MEDIUM" ? "score-med" : "score-low"));
+    el("scoreBanner").className = cls;
+    el("repSourceTag").textContent = rep.sourceTag || "ON-CHAIN REPORT";
+    el("repSymbol").textContent = (sum.symbol || tok.symbol || "TOKEN") + " (" + String(sum.chain || "base").toUpperCase() + ")";
+    el("repRec").textContent = (sum.safeToTrade ? "✓ SAFE TO TRADE · " : "⛔ BLOCKED · ") + (sum.recommendation || "");
+    el("repScore").textContent = (sum.riskScore != null ? sum.riskScore : 0) + "/100";
+
+    var kv = [
+      ["Contract / Mint", sum.tokenAddress || ""],
+      ["Latency / RPC", (sum.latencyMs || 0) + " ms · " + (scan.rpcUsed || "RPC")],
+      ["Supply / Standard", (tok.totalSupplyFormatted || "—") + " (" + (tok.tokenStandard || "ERC-20") + ")"],
+      ["Primary DEX Pool", (liq.dex || "—") + " · " + (liq.poolWethReserve || "—")]
+    ];
+    var kvHtml = "";
+    for (var i = 0; i < kv.length; i++) {
+      kvHtml += '<div class="kv-cell"><span>' + esc(kv[i][0]) + '</span><strong>' + esc(kv[i][1]) + '</strong></div>';
+    }
+    el("repKvGrid").innerHTML = kvHtml;
+
+    var fHtml = "";
+    if (!findings.length) {
+      fHtml = '<div class="finding-pill" style="background:rgba(16,185,129,0.14);border-color:rgba(16,185,129,0.4);color:#6ee7b7;">✓ Zero bytecode traps, mint/freeze authorities renounced.</div>';
+    } else {
+      for (var f = 0; f < findings.length; f++) {
+        var fd = findings[f];
+        var isCrit = fd.severity === "CRITICAL" || fd.severity === "HIGH";
+        fHtml += '<div class="finding-pill' + (isCrit ? " crit" : "") + '"><strong>[' + esc(fd.severity) + " · " + esc(fd.code) + "]</strong> " + esc(fd.message) + "</div>";
+      }
+    }
+    el("repFindings").innerHTML = fHtml;
+    el("rawJsonBox").textContent = JSON.stringify(rep, null, 2);
+  }
+
+  function renderAll() {
+    var t = I18N[state.lang];
+    renderHeaderAndControls();
+
+    el("leftTitle").textContent = t.leftTitle;
+    var sHtml = "";
+    for (var i = 0; i < SAMPLES.length; i++) {
+      var sm = SAMPLES[i];
+      sHtml +=
+        '<button type="button" class="sample-btn' + (i === state.sampleIdx ? " active" : "") + '" data-sample="' + i + '">' +
+        '<strong>' + (state.lang === "zh" ? sm.labelZh : sm.labelEn) + '</strong>' +
+        '<span>' + (state.lang === "zh" ? sm.subZh : sm.subEn) + '</span>' +
+        '</button>';
+    }
+    el("sampleRow").innerHTML = sHtml;
+
+    el("liveTitle").textContent = t.liveTitle;
+    el("lblAddr").textContent = t.lblAddr;
+    el("lblChain").textContent = t.lblChain;
+    el("lblGateway").textContent = t.lblGateway;
+    el("lblTxHash").textContent = t.lblTxHash;
+    el("inpTokenAddr").value = state.tokenAddr;
+    el("selChain").value = state.chainSel;
+    el("inpGateway").value = state.gatewayUrl;
+    el("inpTxHash").value = state.txHashOpt;
+    el("payScanBtn").textContent = t.payScanBtn;
+    el("probe402Btn").textContent = t.probe402Btn;
+
+    el("cdTitle").textContent = t.cdTitle;
+    el("inpCdTo").value = state.calldataTo;
+    el("inpCdHex").value = state.calldataHex;
+    el("cdScanBtn").textContent = t.cdBtn;
+
+    el("devTitle").textContent = t.devTitle;
+    var snips = getDevSnippets();
+    var dTabs = "";
+    for (var d = 0; d < snips.length; d++) {
+      dTabs +=
+        '<button type="button" class="tab-btn' + (d === state.devSnippetIdx ? " active" : "") + '" data-dev="' + d + '">' +
+        snips[d].title +
+        '</button>';
+    }
+    el("devTabs").innerHTML = dTabs;
+    el("devCodeBox").textContent = snips[state.devSnippetIdx].code;
+
+    renderReportPanel();
+  }
+
+  // Event Bindings
+  el("tabBtnToken").addEventListener("click", function () { state.tab = "token"; renderAll(); });
+  el("tabBtnCalldata").addEventListener("click", function () { state.tab = "calldata"; renderAll(); });
+  el("tabBtnDev").addEventListener("click", function () { state.tab = "developers"; renderAll(); });
+
+  el("langEn").addEventListener("click", function () { state.lang = "en"; renderAll(); });
+  el("langZh").addEventListener("click", function () { state.lang = "zh"; renderAll(); });
+
+  el("connectWalletBtn").addEventListener("click", function () {
+    ensureWalletOnBase().catch(function (err) {
+      state.statusMsg = "⚠️ " + err.message;
+      renderHeaderAndControls();
+    });
+  });
+
+  el("sampleRow").addEventListener("click", function (ev) {
+    var btn = ev.target.closest("[data-sample]");
+    if (!btn) return;
+    var idx = parseInt(btn.getAttribute("data-sample"), 10) || 0;
+    state.sampleIdx = idx;
+    state.tokenAddr = SAMPLES[idx].addr;
+    state.chainSel = SAMPLES[idx].chain;
+    state.activeReport = SAMPLES[idx].report;
+    state.statusMsg = "";
+    renderAll();
+  });
+
+  el("inpTokenAddr").addEventListener("input", function (e) { state.tokenAddr = e.target.value.trim(); });
+  el("selChain").addEventListener("change", function (e) { state.chainSel = e.target.value; });
+  el("inpGateway").addEventListener("input", function (e) { state.gatewayUrl = e.target.value.trim(); });
+  el("inpTxHash").addEventListener("input", function (e) { state.txHashOpt = e.target.value.trim(); });
+
+  el("payScanBtn").addEventListener("click", function () {
+    executeLivePaidPost("/api/v1/scan-token-risk", {
+      tokenAddress: state.tokenAddr,
+      chain: state.chainSel
+    }).catch(function (err) {
+      state.statusMsg = "⚠️ " + err.message;
+      renderHeaderAndControls();
+    });
+  });
+
+  el("probe402Btn").addEventListener("click", function () {
+    probeLive402Quote();
+  });
+
+  el("inpCdTo").addEventListener("input", function (e) { state.calldataTo = e.target.value.trim(); });
+  el("inpCdHex").addEventListener("input", function (e) { state.calldataHex = e.target.value.trim(); });
+
+  el("cdScanBtn").addEventListener("click", function () {
+    executeLivePaidPost("/api/v1/audit-calldata", {
+      chainId: 8453,
+      to: state.calldataTo,
+      data: state.calldataHex,
+      value: "0"
+    }).catch(function (err) {
+      state.statusMsg = "⚠️ " + err.message;
+      renderHeaderAndControls();
+    });
+  });
+
+  el("devTabs").addEventListener("click", function (ev) {
+    var btn = ev.target.closest("[data-dev]");
+    if (!btn) return;
+    state.devSnippetIdx = parseInt(btn.getAttribute("data-dev"), 10) || 0;
+    renderAll();
+  });
+
+  el("copyDevBtn").addEventListener("click", function () {
+    var txt = el("devCodeBox").textContent || "";
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () {
+        el("copyDevBtn").textContent = "✓ Copied!";
+        setTimeout(function () { el("copyDevBtn").textContent = "📋 Copy Snippet"; }, 1600);
+      }).catch(function () {});
+    }
+  });
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
